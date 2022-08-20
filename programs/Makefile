@@ -1,8 +1,7 @@
 MPIC = mpic++
 
-PROGS: primos
-
-primos:
+PROGS= MM
+MM:
 	$(GCC) $(FLAGS) $@.c++ -c 
 	$(GCC) $(FLAGS) $@.o -o $@
 

@@ -27,7 +27,7 @@ int main ( int argc, char *argv[] )
   double wtime;
 
   n_lo = 1;
-  n_hi = 131072;
+  n_hi = 16777216;
   n_factor = 2;
   MPI::Init ( argc, argv );
   p = MPI::COMM_WORLD.Get_size (  );

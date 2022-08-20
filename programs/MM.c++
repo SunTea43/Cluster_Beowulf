@@ -3,14 +3,16 @@
 # include <iomanip>
 # include <cmath>
 # include <ctime>
+# include <stdio.h>
 # include "mpi.h"
 
 using namespace std;
 
-int main ( int argc, char *argv[] );
 int prime_number ( int n, int id, int p );
 double **memReserve(int size);
 void initMatrix(double **MA, double **MB, double **MC, int size);
+void MMx (int N, double **Ma, double **Mb, double **Mc, int id, int p);
+void printMatrix(double **M, int size, char *name);
 
 int main ( int argc, char *argv[] ){
   int i;
@@ -41,36 +43,25 @@ int main ( int argc, char *argv[] ){
 
   if ( id == master )
   {
-    cout << "\n";
-    cout << "Matrix Multiplication - C++/MPI version\n";
-    cout << " Program for multipliying square matrix\n";
-    cout << "  Corriendo en " << p << " procesos\n";
-    cout << "\n";
-    cout << "         N        S          Tiempo\n";
-    cout << "\n";
+    printMatrix(Ma, N, "Matrix A");
+    printMatrix(Mb, N, "Matrix B");
   }
 
-  n = n_lo;
 
-  while ( n <= n_hi ){
-    if ( id == master ){
-      wtime = MPI::Wtime ( );
-    }
+  if ( id == master ){
+    wtime = MPI::Wtime ( );
+  }
 
-    MPI::COMM_WORLD.Bcast(&N, 1, MPI::INT, master);
+  MPI::COMM_WORLD.Bcast(&N, 1, MPI::INT, master);
 
-    primes_part = MMx(int N; double **Ma, double **Mb, double **Mc, int id, int p);
+  MMx(N, Ma, Mb, Mc, id, p);
 
-    // MPI::COMM_WORLD.Reduce(&primes_part, &primes, 1, MPI::INT, MPI::SUM, master );
+  //MPI::COMM_WORLD.Reduce(&Mc, &Mc, 1, MPI::INT, MPI::SUM, master );
 
-    if ( id == master ){
-      wtime = MPI::Wtime ( ) - wtime;
+  if ( id == master ){
+    wtime = MPI::Wtime ( ) - wtime;
 
-      cout << "  " << setw(8) << n
-           << "  " << setw(8) << primes
-           << "  " << setw(14) << wtime << "\n";
-    }
-    n = n * n_factor;
+    cout << "  " << setw(14) << wtime << "\n";
   }
 
   MPI::Finalize ( );
@@ -79,8 +70,9 @@ int main ( int argc, char *argv[] ){
     cout << "\n";
     cout << "PRIME_MPI - Procesos maestro:\n";
     cout << "  Finalizacion del calculo normal.\n";
+    
   }
-
+  printMatrix(Mc, N, "Matrix C");
   return 0;
 }
 
@@ -93,9 +85,8 @@ int main ( int argc, char *argv[] ){
  * @param Mb: Matriz B.
  * @param Mc: Matriz C -> Result.
 */
-int MMx (int N; double **Ma, double **Mb, double **Mc, int id, int p){
-  int i;
-  int j;
+void MMx (int N, double **Ma, double **Mb, double **Mc, int id, int p){
+  int i, j,k;
   int portionSize, initRow, endRow;
 	double sum;
 
@@ -151,5 +142,27 @@ void initMatrix(double **MA, double **MB, double **MC, int size){
 			MB[i][j] = 2.4 * (i - j);
 			MC[i][j] = 0.0;
 		}
+	}
+}
+/**
+ * @brief Fuction to print matrix of type double pointer
+ * @param M: matrix of type double pointer to print
+ * @param size: Matrizx size
+ */
+void printMatrix(double **M, int size, char *name)
+{
+	int i, j; /*Indices*/
+	if (size < 5)
+	{
+		printf("%s\n", name);
+		for (i = 0; i < size; ++i)
+		{
+			for (j = 0; j < size; ++j)
+			{
+				printf("	%.2f", M[i][j]);
+			}
+			printf("\n");
+		}
+		printf("----------------------------------------------------------\n");
 	}
 }
