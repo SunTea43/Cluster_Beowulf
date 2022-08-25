@@ -98,8 +98,8 @@ void MMx (int N, double **Ma, double **Mb, double **Mc, int id, int p){
 
 /*********** Functions ******************/
 /**
- * @brief: Reserves the memory size for a given matrix
- * @param size: Matrix size
+ * @brief Reserves the memory size for a given matrix
+ * @param size Matrix size
 */
 double **memReserve(int size){
 	/* Memory reserve of dimenion NxN double*/
@@ -116,11 +116,11 @@ double **memReserve(int size){
 }
 
 /**
- * @brief: Gives values for each space of a matrix
- * @param MA: Matrix A
- * @param MB: Matrix B
- * @param MC: Matrix C
- * @param size: Size of the matrix
+ * @brief Gives values for each space of a matrix
+ * @param MA Matrix A
+ * @param MB Matrix B
+ * @param MC Matrix C
+ * @param size Size of the matrix
  */
 void initMatrix(double **MA, double **MB, double **MC, int size){
 	int i, j; /*Indices*/
@@ -135,11 +135,6 @@ void initMatrix(double **MA, double **MB, double **MC, int size){
 	}
 }
 
-/**
- * @brief 
- * @param M: 
- * @param size: 
- */
 /**
  * @brief Fuction to print matrix of type double pointer
  * 
@@ -165,7 +160,15 @@ void printMatrix(double **M, int size, char const *name){
 	}
 }
 
-
+/**
+ * @brief Function to print resultant matrix
+ * 
+ * @param M That is the matrix to be printed
+ * @param size That is the size N of a matrix NxN
+ * @param name That is the matrix name
+ * @param id That is the process id
+ * @param p That is the world processors number
+ */
 void printResultantMatrix(double **M, int size, char const *name, int id,int p){
   int i, j; /*indexes*/
   int portionSize, initRow, endRow;
