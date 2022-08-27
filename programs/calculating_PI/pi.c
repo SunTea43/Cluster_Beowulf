@@ -24,7 +24,7 @@ void sampleStart();
 void sampleEnd();
 
 int main(){
-    long int i, n = 90e6; //10e6 90e6
+    long int i, n = 10e6; //10e6 90e6
     long double sum = 0.0, term, pi, p;
 	printf("Calculating PI with a serie of %ld ", n);
     
@@ -32,6 +32,7 @@ int main(){
     
     /* Applying Leibniz Formula */    
     for(i = 0; i< n; i++) {
+    	
         //p = ((i*100)/n);
         //printf("Progress: %.0f %%", p);
         term = pow(-1, i) / (2 * i + 1);
