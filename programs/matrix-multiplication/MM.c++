@@ -51,17 +51,12 @@ int main ( int argc, char *argv[] ){
   if ( id == master ){
     wtime = MPI::Wtime ( ) - wtime;
 
-    cout << "  " << setw(14) << wtime << "\n";
+    cout <<N<<","<<p<<","<< wtime << "\n";
   }
 
   MPI::Finalize ( );
 
-  if ( id == master ){
-    cout << "\n";
-    
-    cout << "  Finalizacion del calculo normal.\n";
-    
-  }
+  
   printResultantMatrix(Mc, N, "Matrix C",id,p);
   return 0;
 }
@@ -176,12 +171,11 @@ void printResultantMatrix(double **M, int size, char const *name, int id,int p){
 	initRow = id * portionSize;	      // Beggining of the row.
 	endRow = (id + 1) * portionSize;  // End of the row.
 	if (size < 5){
-    if(id ==0)
-		  printf("%s\n", name);
+		if(id ==0)
+			printf("%s\n", name);
 		for (i = initRow; i < endRow; ++i){
 			for (j = 0; j < size; ++j)
 				printf("	%.2f", M[i][j]);
-			
 			printf("\n");
 		}
     if (size ==endRow)
