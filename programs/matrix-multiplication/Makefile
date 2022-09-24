@@ -1,13 +1,18 @@
-GCC = mpicc
+MPICC = mpicc
+MPICPP = mpic++
+PROGS: hybrid-openmp-mm all MM
 
-PROGS: hybrid-openmp-mm all
-
-all: clean hybrid-openmp-mm
+all: clean hybrid-openmp-mm MM
 
 hybrid-openmp-mm:
-	$(GCC) $@.c -o $@ -fopenmp
+	$(MPICC) $@.c -o $@ -fopenmp
+
+MM:
+	$(MPICPP) $@.c++ -o $@ 
+
 
 clean:
 	$(RM) $(PROGS) *.o
 	$(RM) hybrid-openmp-mm
+	$(RM) MM
  
