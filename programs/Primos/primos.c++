@@ -28,7 +28,7 @@ int main ( int argc, char *argv[] )
   double totaltime=0;
 
   n_lo = 1;
-  n_hi = 131072;
+  n_hi = atoi(argv[1]);
   n_factor = 2;
   MPI::Init ( argc, argv );
   p = MPI::COMM_WORLD.Get_size (  );
@@ -60,7 +60,7 @@ int main ( int argc, char *argv[] )
   
   if ( id == master )
   {
-    cout<<totaltime<<endl;
+    cout<<p<<","<<n_hi<<","<<totaltime<<endl;
   }
   return 0;
 }

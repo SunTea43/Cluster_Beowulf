@@ -1,0 +1,12 @@
+# Nodo maestro
+localhost slots=2
+
+# Nodos esclavos
+
+nodo2 slots=4
+nodo3 slots=4
+nodo4 slots=4
+nodo5 slots=4
+nodo6 slots=4
+nodo7 slots=4
+
