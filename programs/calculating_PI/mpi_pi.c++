@@ -1,4 +1,3 @@
-#define __USE_MINGW_ANSI_STDIO 1
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -7,7 +6,6 @@
 # include <cstdlib>
 # include <iostream>
 # include <iomanip>
-# include <cmath>
 # include <ctime>
 
 # include "mpi.h"
@@ -24,7 +22,7 @@ using namespace std;
   #endif
 #endif
 
-int get_pi(int n, int id, int p);
+long double get_pi(long int n, int id, int p);
 
 int main(int argc, char *argv[]){
     int i;
@@ -35,8 +33,8 @@ int main(int argc, char *argv[]){
     int n_hi;
     int n_lo;
     int p;
-    int primes;
-    int primes_part;
+    long double total;
+    long double total_part;
     double wtime;
     double totaltime=0;
 
@@ -59,12 +57,13 @@ int main(int argc, char *argv[]){
         }
 
         MPI::COMM_WORLD.Bcast(&n, 1, MPI::INT, master);
-        primes_part = get_pi(n, id, p);
-        MPI::COMM_WORLD.Reduce(&primes_part, &primes, 1, MPI::INT, MPI::SUM, master);
+        total_part = get_pi(n, id, p);
+        MPI::COMM_WORLD.Reduce(&total_part, &total, 1, MPI::LONG_DOUBLE, MPI::SUM, master);
 
         if(id == master){
             wtime = MPI::Wtime() - wtime;
             totaltime += wtime;
+            printf("\nPI = %.*Lf\n", OP_DBL_Digs, total);
         }
         n = n * n_factor;
     }
@@ -78,11 +77,10 @@ int main(int argc, char *argv[]){
     return 0;
 }
 
-int get_pi(long int n, int id, int p){
+long double get_pi(long int n, int id, int p){
     long int i;
     long double sum = 0.0, term, pi;
 
-    
     int total;
 
     total = 0;
@@ -95,7 +93,7 @@ int get_pi(long int n, int id, int p){
     }
 
     pi = 4 * total;
-    printf("\nPI = %.*Lf\n", OP_DBL_Digs, pi);
+    //printf("\nPI = %.*Lf\n", OP_DBL_Digs, pi);
 
     return pi;
 

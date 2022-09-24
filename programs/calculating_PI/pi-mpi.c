@@ -33,11 +33,11 @@ int main(int argc, char **argv) {
 
     MPI_Bcast(&intervals, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
-    int count = intervals / processes;
-    int start = count * pe;
-    int end = count * pe + count;
+    long int count = intervals / processes;
+    long int start = count * pe;
+    long int end = count * pe + count;
 
-    int i;
+    double i;
     double subtotal, total = 0;
     for (i = start; i < end; ++i) {
         subtotal += pow(-1, i) / (2 * i + 1);
@@ -50,8 +50,8 @@ int main(int argc, char **argv) {
 
     if (pe == 0) {
         total = 4 * total;
-        printf("Result:   %.10lf\n", total);
-        printf("Accuracy: %.10lf\n", PI - total);
+        printf("Result:   %.50lf\n", total);
+        printf("Accuracy: %.50lf\n", PI - total);
         printf("Time:     %.10lf\n", time2 - time1);
     }
 

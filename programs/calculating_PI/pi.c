@@ -1,13 +1,12 @@
 #define __USE_MINGW_ANSI_STDIO 1
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h>
 #include<math.h>
 #include <time.h>
 #include<float.h>
 
 #ifdef LDBL_DECIMAL_DIG
-  #define OP_DBL_Digs (LDBL_DECIMAL_DI)
+  #define OP_DBL_Digs (LDBL_DECIMAL_DIG)
 #else  
   #ifdef DECIMAL_DIG
     #define OP_DBL_Digs (DECIMAL_DIG)
