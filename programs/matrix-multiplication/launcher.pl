@@ -13,16 +13,15 @@ print("Source: ".$PATH. "\n\n");
 system "make all";
 system "rm registros/*.csv";
 #Varaible who represents the number of repetitions for each executable file   
-$N = 36;
+$N = 30;
 #Vector of executable benchmarks
-@ejecutables = ("MM");
+@ejecutables = ("hybrid-openmp-mm");
 
 #Vector  threads to execute
 @threadsN = ("1","2","4");   
-@proccesorN = (1..7);
+@proccesorN = (5..7);
 
-@numbers = (300,400,500);
-@multiples = map {14*$_} @numbers;
+@multiples = (6720,8400,10080);
 foreach $number (@multiples){
     foreach $exe (@ejecutables){
         foreach $pro (@proccesorN){
@@ -31,8 +30,9 @@ foreach $number (@multiples){
                 #print($file."\n");
                 for ($i = 0; $i < $N; $i++){
                     #print("$PATH/$exe $size $thread \n");
-                    system "mpirun -np $pro --hostfile .mpi_hostfile ./$exe $number $thread>> $file ";
-                }
+                    #print("mpirun -np $pro --hostfile .mpi_hostfile ./$exe $number $thread >> $file \n");
+                    system "mpirun -np $pro --hostfile .mpi_hostfile ./$exe $number $thread >> $file \n";
+		}
                 close $file; 
             }
         }

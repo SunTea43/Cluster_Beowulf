@@ -18,7 +18,7 @@ $N = 36;
 @ejecutables = ("MM");
 
 #Vector  threads to execute
-@threadsN = ("1","2","4","8","16","28");   
+@threadsN = ("2","4","8","16","28");   
 
 @numbers = (300,400,500);
 @multiples = map {14*$_} @numbers;

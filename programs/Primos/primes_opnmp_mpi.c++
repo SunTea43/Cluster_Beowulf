@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <omp.h>
 #include "mpi.h"
-
+#include <iostream>
+using namespace std;
 int prime_number ( int n, int id, int p );
 
 int main(int argc, char *argv[]) {
@@ -47,12 +48,12 @@ int prime_number ( int n, int id, int p, int threads ){
 	omp_set_num_threads(threads);
 /*Instruction to the compiler, telling that here starts the
 parallel computation*/
+int total;
 #pragma omp parallel
 	{
 		int i;
     int j;
     int prime;
-    int total;
 
     total = 0;
 #pragma omp for
