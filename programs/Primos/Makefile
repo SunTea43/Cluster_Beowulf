@@ -1,13 +1,15 @@
-GCC = mpic++
+GCC = mpic++ 
 
-PROGS: primos all
+PROGS: primos primes_opnmp_mpi
 
-all: clean primos
+all: clean primes_opnmp_mpi
 
 primos:
-	$(GCC) $@.c++ -o $@ 
+	$(GCC) $@.c++ -o $@ -fopenmp
 	
+primes_opnmp_mpi:
+	$(GCC) $@.c++ -o $@ -fopenmp
 
 clean:
 	$(RM) $(PROGS) *.o
-	$(RM) primos
+	$(RM) primes_opnmp_mpi
