@@ -1,2 +1,0 @@
-mpic++ primos.c++ -o primos
-1714748364
